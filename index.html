@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aswath D - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00d4ff;
+            --secondary-color: #7c3aed;
+            --accent-color: #f59e0b;
+            --space-blue: #1e293b;
+            --space-dark: #0f172a;
+            --nebula-purple: #6366f1;
+        }
+
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #e2e8f0;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #ffffff, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: twinkle 4s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-hover {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card-hover:hover::before {
+            left: 100%;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .skill-bar {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .photo-placeholder {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: 4px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .typing-animation {
+            color: var(--primary-color);
+            border-right: 2px solid var(--primary-color);
+            animation: blink 1s infinite;
+            font-weight: 600;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: var(--primary-color); }
+            51%, 100% { border-color: transparent; }
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 15px;
+            border-radius: 50%;
+            color: var(--primary-color);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .section-bg {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .glow-text {
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+            font-weight: 700;
+        }
+
+        .contact-card {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .space-icon { color: var(--primary-color); }
+        .nebula-icon { color: var(--secondary-color); }
+        .star-icon { color: var(--accent-color); }
+        .planet-icon { color: #10b981; }
+        .comet-icon { color: #f97316; }
+        .galaxy-icon { color: #ec4899; }
+
+        .education-card {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .space-border {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            padding: 2px;
+            border-radius: 15px;
+        }
+
+        .space-border-inner {
+            background: rgba(30, 41, 59, 0.95);
+            border-radius: 13px;
+            padding: 1.5rem;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body class="text-slate-200">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-slate-900 bg-opacity-90 backdrop-blur-md z-50 border-b border-cyan-400 border-opacity-30">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-white glow-text">Aswath D</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#education" class="nav-link">Education</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-cyan-400">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-95 z-40 hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-2xl">
+            <a href="#home" class="nav-link mobile-nav-link">Home</a>
+            <a href="#about" class="nav-link mobile-nav-link">About</a>
+            <a href="#education" class="nav-link mobile-nav-link">Education</a>
+            <a href="#skills" class="nav-link mobile-nav-link">Skills</a>
+            <a href="#experience" class="nav-link mobile-nav-link">Experience</a>
+            <a href="#projects" class="nav-link mobile-nav-link">Projects</a>
+            <a href="#contact" class="nav-link mobile-nav-link">Contact</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="home" class="gradient-bg text-white py-32 mt-16 min-h-screen flex items-center">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="mb-8">
+                <!-- Photo placeholder with colorful animation -->
+                <div class="photo-placeholder w-48 h-48 rounded-full mx-auto mb-8 flex items-center justify-center floating">
+                    <i class="fas fa-user text-6xl text-white"></i>
+                </div>
+                <h1 class="text-7xl font-bold mb-6 glow-text pulse">Aswath D</h1>
+                <div class="text-3xl mb-12 typing-animation font-semibold" id="typing-text"></div>
+                <button id="scroll-down" class="animate-bounce text-white text-3xl bg-white bg-opacity-20 p-4 rounded-full backdrop-blur-md">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 section-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 text-white glow-text">About Me</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="card-hover p-8 rounded-2xl">
+                        <h3 class="text-2xl font-semibold mb-4 space-icon">Background</h3>
+                        <p class="text-slate-300 leading-relaxed mb-6">
+                            I'm a passionate web developer and data analyst with a strong foundation in technology and business. 
+                            I enjoy creating innovative solutions and analyzing data to drive meaningful insights. My journey in 
+                            technology started during my school years and has evolved through my college education.
+                        </p>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-graduation-cap nebula-icon text-xl"></i>
+                                <span class="font-medium text-slate-200">B.Com Information Technology Graduate</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-code star-icon text-xl"></i>
+                                <span class="font-medium text-slate-200">Web Development & Data Analysis</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-chart-line planet-icon text-xl"></i>
+                                <span class="font-medium text-slate-200">Financial Analysis Specialist</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-hover p-8 rounded-2xl">
+                        <h3 class="text-2xl font-semibold mb-4 comet-icon">What I Do</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-laptop-code space-icon mt-1 text-xl"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-200">Web Development</h4>
+                                    <p class="text-slate-400 text-sm">Creating responsive and interactive web applications with modern technologies</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-chart-bar nebula-icon mt-1 text-xl"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-200">Data Analysis</h4>
+                                    <p class="text-slate-400 text-sm">Analyzing complex datasets to extract valuable business insights</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-database star-icon mt-1 text-xl"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-200">Financial Analysis</h4>
+                                    <p class="text-slate-400 text-sm">Evaluating financial performance and market trends</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 text-white glow-text">Education</h2>
+            <div class="max-w-4xl mx-auto space-y-8">
+                <!-- College Education -->
+                <div class="space-border">
+                    <div class="space-border-inner">
+                        <div class="flex items-start space-x-6">
+                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-full floating">
+                                <i class="fas fa-university text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-semibold mb-2 space-icon">Bachelor of Commerce - Information Technology</h3>
+                                <p class="text-xl font-medium mb-2 nebula-icon">Dr. N.G.P Arts and Science College</p>
+                                <p class="text-slate-400 mb-4">Undergraduate Degree</p>
+                                <p class="text-slate-300 leading-relaxed">
+                                    Completed B.Com IT with a focus on combining business knowledge with information technology. 
+                                    Gained expertise in programming, database management, web development, and business applications. 
+                                    Developed strong analytical and problem-solving skills through various projects and coursework.
+                                </p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="bg-purple-900 text-purple-300 px-3 py-1 rounded-full text-sm">Business Studies</span>
+                                    <span class="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm">Information Technology</span>
+                                    <span class="bg-green-900 text-green-300 px-3 py-1 rounded-full text-sm">Programming</span>
+                                    <span class="bg-amber-900 text-amber-300 px-3 py-1 rounded-full text-sm">Database Management</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- School Education -->
+                <div class="space-border">
+                    <div class="space-border-inner">
+                        <div class="flex items-start space-x-6">
+                            <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4 rounded-full floating">
+                                <i class="fas fa-school text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-semibold mb-2 star-icon">Higher Secondary Education</h3>
+                                <p class="text-xl font-medium mb-2 planet-icon">Hindusthan Matriculation Higher Secondary School</p>
+                                <p class="text-slate-400 mb-4">Secondary & Higher Secondary Education</p>
+                                <p class="text-slate-300 leading-relaxed">
+                                    Completed my foundational education with a strong academic record in Commerce stream. 
+                                    Developed fundamental skills in business studies, financial management, and computer applications. 
+                                    Participated in various extracurricular activities and developed leadership qualities.
+                                </p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm">Accounts</span>
+                                    <span class="bg-purple-900 text-purple-300 px-3 py-1 rounded-full text-sm">Commerce</span>
+                                    <span class="bg-amber-900 text-amber-300 px-3 py-1 rounded-full text-sm">Economics</span>
+                                    <span class="bg-green-900 text-green-300 px-3 py-1 rounded-full text-sm">Computer Application</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 section-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 text-white glow-text">Skills & Expertise</h2>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="card-hover p-8 rounded-2xl">
+                        <h3 class="text-2xl font-semibold mb-8 space-icon flex items-center">
+                            <i class="fas fa-code mr-3"></i>Programming Languages
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="skill-item" data-skill="70">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-200">Python</span>
+                                    <span class="space-icon font-bold">70%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-4">
+                                    <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill="60">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-200">JavaScript</span>
+                                    <span class="nebula-icon font-bold">60%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-4">
+                                    <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill="50">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-200">HTML/CSS</span>
+                                    <span class="star-icon font-bold">50%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-4">
+                                    <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill="40">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-200">PHP</span>
+                                    <span class="planet-icon font-bold">40%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-4">
+                                    <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-hover p-8 rounded-2xl">
+                        <h3 class="text-2xl font-semibold mb-8 comet-icon flex items-center">
+                            <i class="fas fa-tools mr-3"></i>Tools & Software
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="skill-item" data-skill="85">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-200">Excel</span>
+                                    <span class="comet-icon font-bold">85%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-4">
+                                    <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill="80">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-200">PowerPoint</span>
+                                    <span class="galaxy-icon font-bold">80%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-4">
+                                    <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill="65">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-200">Tableau</span>
+                                    <span class="space-icon font-bold">65%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-4">
+                                    <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 text-white glow-text">Experience</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="card-hover p-8 rounded-2xl">
+                    <div class="flex items-start space-x-6">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-full floating">
+                            <i class="fas fa-code text-2xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-semibold mb-2 space-icon">Web Development Intern</h3>
+                            <p class="text-xl font-medium mb-2 nebula-icon">Litz Tech Institution</p>
+                            <p class="text-slate-400 mb-4">May 20, 2024 - June 5, 2024</p>
+                            <p class="text-slate-300 leading-relaxed mb-6">
+                                Gained hands-on experience in web development technologies and best practices. 
+                                Worked on real-world projects and enhanced skills in HTML, CSS, JavaScript, and web development frameworks. 
+                                Collaborated with senior developers and learned industry-standard coding practices and project management methodologies.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm">HTML/CSS</span>
+                                <span class="bg-amber-900 text-amber-300 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                                <span class="bg-green-900 text-green-300 px-3 py-1 rounded-full text-sm">Web Development</span>
+                                <span class="bg-purple-900 text-purple-300 px-3 py-1 rounded-full text-sm">Team Collaboration</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 section-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 text-white glow-text">Featured Projects</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="card-hover p-8 rounded-2xl">
+                    <div class="flex items-start space-x-6">
+                        <div class="bg-gradient-to-r from-green-500 to-teal-500 text-white p-4 rounded-full floating">
+                            <i class="fas fa-chart-line text-2xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-semibold mb-2 star-icon">Financial Performance Analysis of Tata Motors</h3>
+                            <p class="text-xl font-medium mb-2 planet-icon">Final Year College Project</p>
+                            <p class="text-slate-400 mb-4">2014 - 2024 Comprehensive Analysis</p>
+                            <p class="text-slate-300 leading-relaxed mb-6">
+                                Conducted an in-depth financial analysis of Tata Motors spanning a decade (2014-2024). 
+                                Analyzed key financial metrics, market trends, and performance indicators to evaluate the company's 
+                                financial health, growth trajectory, and market position. Used advanced Excel functions, statistical 
+                                analysis, and data visualization techniques to present comprehensive findings.
+                            </p>
+                            <div class="bg-gradient-to-r from-amber-900 to-orange-900 border-l-4 border-amber-400 p-4 rounded-lg mb-4">
+                                <p class="text-amber-300 font-medium flex items-center">
+                                    <i class="fas fa-trophy mr-3 comet-icon"></i>
+                                    Published Research Achievement
+                                </p>
+                                <p class="text-amber-200 text-sm mt-2">
+                                    Research findings were successfully published in an academic journal, 
+                                    contributing valuable insights to the field of financial analysis and corporate performance evaluation.
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-green-900 text-green-300 px-3 py-1 rounded-full text-sm">Financial Analysis</span>
+                                <span class="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm">Excel Advanced</span>
+                                <span class="bg-purple-900 text-purple-300 px-3 py-1 rounded-full text-sm">Data Visualization</span>
+                                <span class="bg-orange-900 text-orange-300 px-3 py-1 rounded-full text-sm">Research Publication</span>
+                                <span class="bg-red-900 text-red-300 px-3 py-1 rounded-full text-sm">Market Analysis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 text-white glow-text">Get In Touch</h2>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                    <div class="contact-card p-6 rounded-2xl text-center">
+                        <i class="fas fa-envelope text-5xl space-icon mb-4 floating"></i>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-200">Email</h3>
+                        <a href="mailto:aswathd15@gmail.com" class="space-icon hover:underline font-medium">
+                            aswathd15@gmail.com
+                        </a>
+                    </div>
+                    <div class="contact-card p-6 rounded-2xl text-center">
+                        <i class="fas fa-phone text-5xl nebula-icon mb-4 floating"></i>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-200">Phone</h3>
+                        <a href="tel:9944553022" class="nebula-icon hover:underline font-medium">
+                            +91 9944553022
+                        </a>
+                    </div>
+                    <div class="contact-card p-6 rounded-2xl text-center md:col-span-2 lg:col-span-1">
+                        <i class="fab fa-linkedin text-5xl star-icon mb-4 floating"></i>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-200">LinkedIn</h3>
+                        <a href="https://www.linkedin.com/in/aswath-aion/" target="_blank" class="star-icon hover:underline font-medium">
+                            Connect with me
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Social Media Links -->
+                <div class="text-center">
+                    <h3 class="text-3xl font-semibold mb-8 text-white glow-text">Connect on Social Media</h3>
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://github.com/Aswath-15" target="_blank" class="social-icon">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/__a_s_w_a_t_h___/" target="_blank" class="social-icon">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/aswath-aion/" target="_blank" class="social-icon">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                        <a href="mailto:aswathd15@gmail.com" class="social-icon">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </a>
+                        <a href="tel:9944553022" class="social-icon">
+                            <i class="fas fa-phone text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg py-12">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="mb-6">
+                <h3 class="text-3xl font-bold mb-4 text-white glow-text">Aswath D</h3>
+                <p class="text-slate-200 text-lg mb-6">Web Developer & Data Analyst</p>
+            </div>
+            <div class="border-t border-cyan-400 border-opacity-30 pt-6">
+                <p class="text-slate-200">&copy; 2024 Aswath D. All rights reserved.</p>
+                <p class="text-sm text-slate-400 mt-2">Built with HTML, CSS & JavaScript</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-gradient-to-r from-pink-500 to-purple-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 invisible">
+        <i class="fas fa-arrow-up text-xl"></i>
+    </button>
+
+    <script>
+        // Typing animation
+        const typingText = document.getElementById('typing-text');
+        const texts = ['Web Developer', 'Data Analyst', 'B.Com IT Graduate', 'Problem Solver', 'Creative Thinker'];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeWriter() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentText.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+            }
+
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(typeWriter, speed);
+        }
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll down button
+        document.getElementById('scroll-down').addEventListener('click', () => {
+            document.getElementById('about').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Back to top button
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.opacity = '1';
+                backToTopBtn.style.visibility = 'visible';
+            } else {
+                backToTopBtn.style.opacity = '0';
+                backToTopBtn.style.visibility = 'hidden';
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Skill bars animation
+        function animateSkillBars() {
+            const skillItems = document.querySelectorAll('.skill-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const skillBar = entry.target.querySelector('.skill-bar');
+                        const skillLevel = entry.target.getAttribute('data-skill');
+                        setTimeout(() => {
+                            skillBar.style.width = skillLevel + '%';
+                        }, 200);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            skillItems.forEach(item => {
+                observer.observe(item);
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.card-hover, .contact-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Initialize animations when page loads
+        window.addEventListener('load', () => {
+            typeWriter();
+            animateSkillBars();
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.25)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.2)';
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c840d7649f3d22',t:'MTc1NDc1Mjk5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
