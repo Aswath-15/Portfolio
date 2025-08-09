@@ -21,36 +21,317 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 30%, #0f172a 70%, #000000 100%);
             background-attachment: fixed;
             min-height: 100vh;
             color: #e2e8f0;
             position: relative;
+            overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
+        /* Advanced GPU-Accelerated Starfield */
+        .starfield {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
-                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(2px 2px at 160px 30px, #ffffff, transparent);
-            background-repeat: repeat;
-            background-size: 200px 100px;
-            animation: twinkle 4s ease-in-out infinite alternate;
             pointer-events: none;
             z-index: 1;
+            contain: layout style paint;
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0.3; }
-            100% { opacity: 1; }
+        .starfield::before,
+        .starfield::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+                radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 160px 30px, #ffffff, transparent),
+                radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.8), transparent);
+            background-repeat: repeat;
+            background-size: 250px 200px;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .starfield::before {
+            animation: starMove1 120s linear infinite;
+            opacity: 0.8;
+        }
+
+        .starfield::after {
+            animation: starMove2 180s linear infinite reverse;
+            opacity: 0.6;
+        }
+
+        @keyframes starMove1 {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-250px, -200px, 0); }
+        }
+
+        @keyframes starMove2 {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-200px, -150px, 0); }
+        }
+
+        /* Ultra-Realistic Solar System */
+        .solar-system {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.7;
+            transform: translate3d(-50%, -50%, 0);
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        /* Realistic Sun */
+        .sun {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle at 30% 30%, #ffeb3b, #ff9800, #ff5722);
+            border-radius: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            box-shadow: 
+                0 0 40px #ffeb3b,
+                0 0 80px rgba(255, 235, 59, 0.5),
+                inset -5px -5px 10px rgba(255, 87, 34, 0.3);
+            animation: sunGlow 8s ease-in-out infinite alternate, sunRotate 20s linear infinite;
+            will-change: transform, box-shadow;
+        }
+
+        @keyframes sunGlow {
+            0% { 
+                box-shadow: 
+                    0 0 40px #ffeb3b,
+                    0 0 80px rgba(255, 235, 59, 0.5),
+                    inset -5px -5px 10px rgba(255, 87, 34, 0.3);
+            }
+            100% { 
+                box-shadow: 
+                    0 0 60px #ffeb3b,
+                    0 0 120px rgba(255, 235, 59, 0.7),
+                    inset -5px -5px 10px rgba(255, 87, 34, 0.3);
+            }
+        }
+
+        @keyframes sunRotate {
+            from { transform: translate3d(-50%, -50%, 0) rotate(0deg); }
+            to { transform: translate3d(-50%, -50%, 0) rotate(360deg); }
+        }
+
+        /* Realistic Orbital Paths */
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            will-change: transform;
+            transform-style: preserve-3d;
+        }
+
+        .orbit-mercury { width: 100px; height: 100px; animation: orbit 12s linear infinite; }
+        .orbit-venus { width: 140px; height: 140px; animation: orbit 18s linear infinite; }
+        .orbit-earth { width: 180px; height: 180px; animation: orbit 24s linear infinite; }
+        .orbit-mars { width: 220px; height: 220px; animation: orbit 32s linear infinite; }
+
+        @keyframes orbit {
+            from { transform: translate3d(-50%, -50%, 0) rotate(0deg); }
+            to { transform: translate3d(-50%, -50%, 0) rotate(360deg); }
+        }
+
+        /* Realistic Planets */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            top: -8px;
+            left: 50%;
+            transform: translate3d(-50%, 0, 0);
+            will-change: transform;
+            box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Mercury - Gray rocky planet */
+        .mercury {
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle at 30% 30%, #8c7853, #5d4e37, #3d3d3d);
+            animation: planetSpin 8s linear infinite;
+        }
+
+        /* Venus - Orange/yellow hot planet */
+        .venus {
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle at 30% 30%, #ffc649, #ff9800, #e65100);
+            animation: planetSpin 15s linear infinite reverse;
+        }
+
+        /* Earth - Blue and green */
+        .earth {
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle at 30% 30%, #4fc3f7, #2196f3, #0d47a1);
+            position: relative;
+            animation: planetSpin 12s linear infinite;
+        }
+
+        .earth::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            width: 4px;
+            height: 3px;
+            background: #4caf50;
+            border-radius: 50% 20% 50% 30%;
+            opacity: 0.8;
+        }
+
+        /* Mars - Red planet */
+        .mars {
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle at 30% 30%, #ff7043, #d84315, #bf360c);
+            animation: planetSpin 18s linear infinite;
+        }
+
+        @keyframes planetSpin {
+            from { transform: translate3d(-50%, 0, 0) rotate(0deg); }
+            to { transform: translate3d(-50%, 0, 0) rotate(360deg); }
+        }
+
+        /* Professional Astronaut in EVA Suit */
+        .astronaut {
+            position: fixed;
+            top: 15%;
+            right: 8%;
+            width: 80px;
+            height: 80px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.8;
+            animation: astronautFloat 12s ease-in-out infinite;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+        }
+
+        @keyframes astronautFloat {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(-3deg); }
+            25% { transform: translate3d(15px, -20px, 0) rotate(2deg); }
+            50% { transform: translate3d(-10px, -35px, 0) rotate(-1deg); }
+            75% { transform: translate3d(-15px, -15px, 0) rotate(1deg); }
+        }
+
+        /* Enhanced Meteors */
+        .meteor {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: #ffffff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .meteor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0.8), transparent);
+            transform-origin: 0 50%;
+            transform: rotate(-45deg);
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+        }
+
+        .meteor-1 {
+            top: 8%;
+            left: 95%;
+            animation: meteorFall1 3s linear infinite;
+        }
+
+        .meteor-2 {
+            top: 25%;
+            left: 90%;
+            animation: meteorFall2 4s linear infinite 1.5s;
+        }
+
+        .meteor-3 {
+            top: 45%;
+            left: 88%;
+            animation: meteorFall3 3.5s linear infinite 3s;
+        }
+
+        @keyframes meteorFall1 {
+            0% { transform: translate3d(0, 0, 0); opacity: 1; }
+            100% { transform: translate3d(-300px, 300px, 0); opacity: 0; }
+        }
+
+        @keyframes meteorFall2 {
+            0% { transform: translate3d(0, 0, 0); opacity: 1; }
+            100% { transform: translate3d(-350px, 350px, 0); opacity: 0; }
+        }
+
+        @keyframes meteorFall3 {
+            0% { transform: translate3d(0, 0, 0); opacity: 1; }
+            100% { transform: translate3d(-280px, 280px, 0); opacity: 0; }
+        }
+
+        /* Floating Asteroids */
+        .asteroid {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #8b7355, #5d4e37);
+            border-radius: 40% 60% 70% 30%;
+            pointer-events: none;
+            z-index: 2;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .asteroid-1 {
+            top: 20%;
+            left: 15%;
+            animation: asteroidDrift1 40s linear infinite;
+        }
+
+        .asteroid-2 {
+            top: 70%;
+            left: 85%;
+            animation: asteroidDrift2 35s linear infinite;
+        }
+
+        @keyframes asteroidDrift1 {
+            0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            100% { transform: translate3d(200px, 100px, 0) rotate(360deg); }
+        }
+
+        @keyframes asteroidDrift2 {
+            0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            100% { transform: translate3d(-180px, -120px, 0) rotate(-360deg); }
         }
 
         .gradient-bg {
@@ -178,10 +459,7 @@
         }
 
         .section-bg {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(0, 212, 255, 0.2);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            background: transparent;
             position: relative;
             z-index: 2;
         }
@@ -240,14 +518,10 @@
         }
 
         .space-border {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            padding: 2px;
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
             border-radius: 15px;
-        }
-
-        .space-border-inner {
-            background: rgba(30, 41, 59, 0.95);
-            border-radius: 13px;
             padding: 1.5rem;
             color: #e2e8f0;
         }
@@ -287,6 +561,88 @@
             <a href="#contact" class="nav-link mobile-nav-link">Contact</a>
         </div>
     </div>
+
+    <!-- Advanced Starfield -->
+    <div class="starfield"></div>
+
+    <!-- Realistic Solar System -->
+    <div class="solar-system">
+        <div class="sun"></div>
+        <div class="orbit orbit-mercury">
+            <div class="planet mercury"></div>
+        </div>
+        <div class="orbit orbit-venus">
+            <div class="planet venus"></div>
+        </div>
+        <div class="orbit orbit-earth">
+            <div class="planet earth"></div>
+        </div>
+        <div class="orbit orbit-mars">
+            <div class="planet mars"></div>
+        </div>
+    </div>
+
+    <!-- Professional Astronaut in EVA Suit -->
+    <div class="astronaut">
+        <svg viewBox="0 0 120 120" width="80" height="80">
+            <!-- Helmet Glass -->
+            <circle cx="60" cy="45" r="32" fill="rgba(255,255,255,0.15)" stroke="rgba(200,200,200,0.8)" stroke-width="3"/>
+            <circle cx="60" cy="45" r="28" fill="rgba(255,255,255,0.05)"/>
+            
+            <!-- Helmet Reflection -->
+            <ellipse cx="50" cy="35" rx="12" ry="18" fill="rgba(255,255,255,0.3)" opacity="0.6"/>
+            
+            <!-- Face inside helmet -->
+            <circle cx="55" cy="42" r="1.5" fill="#2c1810"/>
+            <circle cx="65" cy="42" r="1.5" fill="#2c1810"/>
+            <path d="M 55 50 Q 60 53 65 50" stroke="#2c1810" stroke-width="1" fill="none"/>
+            <ellipse cx="60" cy="38" rx="8" ry="12" fill="rgba(255,220,177,0.8)"/>
+            
+            <!-- Helmet Frame -->
+            <circle cx="60" cy="45" r="32" fill="none" stroke="rgba(180,180,180,0.9)" stroke-width="2"/>
+            
+            <!-- Body Suit -->
+            <rect x="40" y="70" width="40" height="45" rx="8" fill="rgba(240,240,240,0.95)" stroke="rgba(180,180,180,0.8)" stroke-width="2"/>
+            
+            <!-- Chest Control Panel -->
+            <rect x="50" y="80" width="20" height="15" rx="3" fill="rgba(0,212,255,0.4)" stroke="rgba(0,212,255,0.9)" stroke-width="1"/>
+            <circle cx="55" cy="87" r="2" fill="rgba(255,0,0,0.8)"/>
+            <circle cx="65" cy="87" r="2" fill="rgba(0,255,0,0.8)"/>
+            <rect x="52" y="90" width="16" height="2" rx="1" fill="rgba(0,212,255,0.6)"/>
+            
+            <!-- Arms -->
+            <rect x="25" y="75" width="20" height="12" rx="6" fill="rgba(240,240,240,0.95)" stroke="rgba(180,180,180,0.8)" stroke-width="2"/>
+            <rect x="75" y="75" width="20" height="12" rx="6" fill="rgba(240,240,240,0.95)" stroke="rgba(180,180,180,0.8)" stroke-width="2"/>
+            
+            <!-- Gloves -->
+            <circle cx="30" cy="81" r="8" fill="rgba(220,220,220,0.95)" stroke="rgba(160,160,160,0.8)" stroke-width="2"/>
+            <circle cx="90" cy="81" r="8" fill="rgba(220,220,220,0.95)" stroke="rgba(160,160,160,0.8)" stroke-width="2"/>
+            
+            <!-- Legs -->
+            <rect x="48" y="110" width="12" height="20" rx="6" fill="rgba(240,240,240,0.95)" stroke="rgba(180,180,180,0.8)" stroke-width="2"/>
+            <rect x="65" y="110" width="12" height="20" rx="6" fill="rgba(240,240,240,0.95)" stroke="rgba(180,180,180,0.8)" stroke-width="2"/>
+            
+            <!-- Boots -->
+            <ellipse cx="54" cy="135" rx="8" ry="5" fill="rgba(200,200,200,0.95)" stroke="rgba(140,140,140,0.8)" stroke-width="2"/>
+            <ellipse cx="71" cy="135" rx="8" ry="5" fill="rgba(200,200,200,0.95)" stroke="rgba(140,140,140,0.8)" stroke-width="2"/>
+            
+            <!-- Life Support Backpack -->
+            <rect x="45" y="65" width="30" height="8" rx="4" fill="rgba(200,200,200,0.9)" stroke="rgba(160,160,160,0.8)" stroke-width="1"/>
+            
+            <!-- Suit Details -->
+            <line x1="45" y1="95" x2="75" y2="95" stroke="rgba(180,180,180,0.6)" stroke-width="1"/>
+            <line x1="45" y1="100" x2="75" y2="100" stroke="rgba(180,180,180,0.6)" stroke-width="1"/>
+        </svg>
+    </div>
+
+    <!-- Enhanced Meteors -->
+    <div class="meteor meteor-1"></div>
+    <div class="meteor meteor-2"></div>
+    <div class="meteor meteor-3"></div>
+
+    <!-- Floating Asteroids -->
+    <div class="asteroid asteroid-1"></div>
+    <div class="asteroid asteroid-2"></div>
 
     <!-- Header -->
     <header id="home" class="gradient-bg text-white py-32 mt-16 min-h-screen flex items-center">
@@ -371,26 +727,24 @@
             <div class="max-w-4xl mx-auto space-y-8">
                 <!-- College Education -->
                 <div class="space-border">
-                    <div class="space-border-inner">
-                        <div class="flex items-start space-x-6">
-                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-full floating">
-                                <i class="fas fa-university text-2xl"></i>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-2xl font-semibold mb-2 space-icon">Bachelor of Commerce - Information Technology</h3>
-                                <p class="text-xl font-medium mb-2 nebula-icon">Dr. N.G.P Arts and Science College</p>
-                                <p class="text-slate-400 mb-4">Undergraduate Degree</p>
-                                <p class="text-slate-300 leading-relaxed">
-                                    Completed B.Com IT with a focus on combining business knowledge with information technology. 
-                                    Gained expertise in programming, database management, web development, and business applications. 
-                                    Developed strong analytical and problem-solving skills through various projects and coursework.
-                                </p>
-                                <div class="mt-4 flex flex-wrap gap-2">
-                                    <span class="bg-purple-900 text-purple-300 px-3 py-1 rounded-full text-sm">Business Studies</span>
-                                    <span class="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm">Information Technology</span>
-                                    <span class="bg-green-900 text-green-300 px-3 py-1 rounded-full text-sm">Programming</span>
-                                    <span class="bg-amber-900 text-amber-300 px-3 py-1 rounded-full text-sm">Database Management</span>
-                                </div>
+                    <div class="flex items-start space-x-6">
+                        <div class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white p-4 rounded-full floating">
+                            <i class="fas fa-university text-2xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-semibold mb-2 space-icon">Bachelor of Commerce - Information Technology</h3>
+                            <p class="text-xl font-medium mb-2 space-icon">Dr. N.G.P Arts and Science College</p>
+                            <p class="text-slate-400 mb-4">Undergraduate Degree</p>
+                            <p class="text-slate-300 leading-relaxed">
+                                Completed B.Com IT with a focus on combining business knowledge with information technology. 
+                                Gained expertise in programming, database management, web development, and business applications. 
+                                Developed strong analytical and problem-solving skills through various projects and coursework.
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Business Studies</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Information Technology</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Programming</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Database Management</span>
                             </div>
                         </div>
                     </div>
@@ -398,26 +752,24 @@
 
                 <!-- School Education -->
                 <div class="space-border">
-                    <div class="space-border-inner">
-                        <div class="flex items-start space-x-6">
-                            <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4 rounded-full floating">
-                                <i class="fas fa-school text-2xl"></i>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-2xl font-semibold mb-2 star-icon">Higher Secondary Education</h3>
-                                <p class="text-xl font-medium mb-2 planet-icon">Hindusthan Matriculation Higher Secondary School</p>
-                                <p class="text-slate-400 mb-4">Secondary & Higher Secondary Education</p>
-                                <p class="text-slate-300 leading-relaxed">
-                                    Completed my foundational education with a strong academic record in Commerce stream. 
-                                    Developed fundamental skills in business studies, financial management, and computer applications. 
-                                    Participated in various extracurricular activities and developed leadership qualities.
-                                </p>
-                                <div class="mt-4 flex flex-wrap gap-2">
-                                    <span class="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm">Accounts</span>
-                                    <span class="bg-purple-900 text-purple-300 px-3 py-1 rounded-full text-sm">Commerce</span>
-                                    <span class="bg-amber-900 text-amber-300 px-3 py-1 rounded-full text-sm">Economics</span>
-                                    <span class="bg-green-900 text-green-300 px-3 py-1 rounded-full text-sm">Computer Application</span>
-                                </div>
+                    <div class="flex items-start space-x-6">
+                        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-4 rounded-full floating">
+                            <i class="fas fa-school text-2xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-semibold mb-2 space-icon">Higher Secondary Education</h3>
+                            <p class="text-xl font-medium mb-2 space-icon">Hindusthan Matriculation Higher Secondary School</p>
+                            <p class="text-slate-400 mb-4">Secondary & Higher Secondary Education</p>
+                            <p class="text-slate-300 leading-relaxed">
+                                Completed my foundational education with a strong academic record in Commerce stream. 
+                                Developed fundamental skills in business studies, financial management, and computer applications. 
+                                Participated in various extracurricular activities and developed leadership qualities.
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Accounts</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Commerce</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Economics</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Computer Application</span>
                             </div>
                         </div>
                     </div>
@@ -449,7 +801,7 @@
                             <div class="skill-item" data-skill="60">
                                 <div class="flex justify-between mb-2">
                                     <span class="font-medium text-slate-200">JavaScript</span>
-                                    <span class="nebula-icon font-bold">60%</span>
+                                    <span class="space-icon font-bold">60%</span>
                                 </div>
                                 <div class="w-full bg-slate-700 rounded-full h-4">
                                     <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
@@ -458,7 +810,7 @@
                             <div class="skill-item" data-skill="50">
                                 <div class="flex justify-between mb-2">
                                     <span class="font-medium text-slate-200">HTML/CSS</span>
-                                    <span class="star-icon font-bold">50%</span>
+                                    <span class="space-icon font-bold">50%</span>
                                 </div>
                                 <div class="w-full bg-slate-700 rounded-full h-4">
                                     <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
@@ -467,7 +819,7 @@
                             <div class="skill-item" data-skill="40">
                                 <div class="flex justify-between mb-2">
                                     <span class="font-medium text-slate-200">PHP</span>
-                                    <span class="planet-icon font-bold">40%</span>
+                                    <span class="space-icon font-bold">40%</span>
                                 </div>
                                 <div class="w-full bg-slate-700 rounded-full h-4">
                                     <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
@@ -484,7 +836,7 @@
                             <div class="skill-item" data-skill="85">
                                 <div class="flex justify-between mb-2">
                                     <span class="font-medium text-slate-200">Excel</span>
-                                    <span class="comet-icon font-bold">85%</span>
+                                    <span class="space-icon font-bold">85%</span>
                                 </div>
                                 <div class="w-full bg-slate-700 rounded-full h-4">
                                     <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
@@ -493,7 +845,7 @@
                             <div class="skill-item" data-skill="80">
                                 <div class="flex justify-between mb-2">
                                     <span class="font-medium text-slate-200">PowerPoint</span>
-                                    <span class="galaxy-icon font-bold">80%</span>
+                                    <span class="space-icon font-bold">80%</span>
                                 </div>
                                 <div class="w-full bg-slate-700 rounded-full h-4">
                                     <div class="skill-bar h-4 rounded-full" style="width: 0%"></div>
@@ -535,10 +887,10 @@
                                 Collaborated with senior developers and learned industry-standard coding practices and project management methodologies.
                             </p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm">HTML/CSS</span>
-                                <span class="bg-amber-900 text-amber-300 px-3 py-1 rounded-full text-sm">JavaScript</span>
-                                <span class="bg-green-900 text-green-300 px-3 py-1 rounded-full text-sm">Web Development</span>
-                                <span class="bg-purple-900 text-purple-300 px-3 py-1 rounded-full text-sm">Team Collaboration</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">HTML/CSS</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Web Development</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Team Collaboration</span>
                             </div>
                         </div>
                     </div>
@@ -578,11 +930,11 @@
                                 </p>
                             </div>
                             <div class="flex flex-wrap gap-2">
-                                <span class="bg-green-900 text-green-300 px-3 py-1 rounded-full text-sm">Financial Analysis</span>
-                                <span class="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm">Excel Advanced</span>
-                                <span class="bg-purple-900 text-purple-300 px-3 py-1 rounded-full text-sm">Data Visualization</span>
-                                <span class="bg-orange-900 text-orange-300 px-3 py-1 rounded-full text-sm">Research Publication</span>
-                                <span class="bg-red-900 text-red-300 px-3 py-1 rounded-full text-sm">Market Analysis</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Financial Analysis</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Excel Advanced</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Data Visualization</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Research Publication</span>
+                                <span class="bg-slate-700 text-cyan-300 px-3 py-1 rounded-full text-sm">Market Analysis</span>
                             </div>
                         </div>
                     </div>
@@ -605,10 +957,10 @@
                         </a>
                     </div>
                     <div class="contact-card p-6 rounded-2xl text-center">
-                        <i class="fas fa-phone text-5xl nebula-icon mb-4 floating"></i>
-                        <h3 class="text-xl font-semibold mb-3 text-slate-200">Phone</h3>
-                        <a href="tel:9944553022" class="nebula-icon hover:underline font-medium">
-                            +91 9944553022
+                        <i class="fab fa-whatsapp text-5xl text-green-400 mb-4 floating"></i>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-200">WhatsApp</h3>
+                        <a href="https://wa.me/919944553022" target="_blank" class="text-green-400 hover:underline font-medium">
+                            Chat with me
                         </a>
                     </div>
                     <div class="contact-card p-6 rounded-2xl text-center md:col-span-2 lg:col-span-1">
@@ -632,6 +984,9 @@
                         </a>
                         <a href="https://www.linkedin.com/in/aswath-aion/" target="_blank" class="social-icon">
                             <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                        <a href="https://wa.me/919944553022" target="_blank" class="social-icon">
+                            <i class="fab fa-whatsapp text-2xl"></i>
                         </a>
                         <a href="mailto:aswathd15@gmail.com" class="social-icon">
                             <i class="fas fa-envelope text-2xl"></i>
@@ -660,7 +1015,7 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <button id="back-to-top" class="fixed bottom-8 right-8 bg-gradient-to-r from-pink-500 to-purple-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 invisible">
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-gradient-to-r from-cyan-500 to-blue-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 invisible">
         <i class="fas fa-arrow-up text-xl"></i>
     </button>
 
@@ -810,5 +1165,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c840d7649f3d22',t:'MTc1NDc1Mjk5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c97e15977b937a',t:'MTc1NDc2NTk4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
