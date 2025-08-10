@@ -976,42 +976,32 @@
    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 
 <!-- Contact Section -->
-<section id="contact" style="padding: 50px; background: radial-gradient(circle at top, #0d0d2b, #000); color: #fff; font-family: Arial, sans-serif;">
-  <h2 style="text-align: center; font-size: 2em; margin-bottom: 30px; color: #00ffff;">Contact Me</h2>
-  <form id="contactForm" action="https://formsubmit.co/aswathd15@gmail.com" method="POST" style="max-width: 600px; margin: 0 auto; background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 10px; box-shadow: 0 0 20px #00ffff;">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_subject" value="New Contact Form Submission">
-    <input type="hidden" name="_template" value="table">
+<form action="https://formsubmit.co/aswathd15@gmail.com?no-storage=true" method="POST" style="background: radial-gradient(circle at top, #1a1a2e, #0f0f1a); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px; max-width: 450px; margin: 40px auto; color: #fff; box-shadow: 0 0 15px rgba(0, 153, 255, 0.2); transition: transform 0.2s ease, box-shadow 0.3s ease;">
 
-    <input type="text" id="name" name="name" required placeholder="Your Name" style="width: 100%; margin-top: 20px; padding: 10px; border: none; border-radius: 5px; background: #111; color: #0ff; box-shadow: inset 0 0 5px #0ff;" />
+  <!-- Honeypot field -->
+  <input type="text" name="_honey" style="display:none">
 
-    <input type="email" id="email" name="email" required placeholder="Your Email" style="width: 100%; margin-top: 20px; padding: 10px; border: none; border-radius: 5px; background: #111; color: #0ff; box-shadow: inset 0 0 5px #0ff;" />
+  <!-- Disable CAPTCHA -->
+  <input type="hidden" name="_captcha" value="false">
 
-    <input type="text" id="subject" name="subject" required placeholder="Subject" style="width: 100%; margin-top: 20px; padding: 10px; border: none; border-radius: 5px; background: #111; color: #0ff; box-shadow: inset 0 0 5px #0ff;" />
+  <!-- Redirect after submit -->
+  
 
-    <textarea id="message" name="message" rows="5" required placeholder="Your Message" style="width: 100%; margin-top: 20px; padding: 10px; border: none; border-radius: 5px; background: #111; color: #0ff; box-shadow: inset 0 0 5px #0ff;"></textarea>
+  <label for="name" style="display:block; margin-top:15px; font-weight:bold; letter-spacing:0.5px;">Name:</label>
+  <input type="text" id="name" name="name" required style="width:100%; padding:10px; margin-top:6px; border:none; border-radius:6px; background:rgba(255,255,255,0.05); color:#fff; font-size:14px; outline:none; box-shadow:0 0 5px rgba(0,153,255,0.2);">
 
-    <button type="submit" style="margin-top: 30px; padding: 12px 20px; background-color: #00ffff; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s;">Send Message</button>
-  </form>
-  <p id="formStatus" style="text-align: center; margin-top: 20px; color: #00ffff;"></p>
+  <label for="email" style="display:block; margin-top:15px; font-weight:bold; letter-spacing:0.5px;">Email:</label>
+  <input type="email" id="email" name="email" required style="width:100%; padding:10px; margin-top:6px; border:none; border-radius:6px; background:rgba(255,255,255,0.05); color:#fff; font-size:14px; outline:none; box-shadow:0 0 5px rgba(0,153,255,0.2);">
 
-  <script>
-    document.getElementById("contactForm").addEventListener("submit", function (e) {
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const subject = document.getElementById("subject").value.trim();
-      const message = document.getElementById("message").value.trim();
+  <label for="message" style="display:block; margin-top:15px; font-weight:bold; letter-spacing:0.5px;">Message:</label>
+  <textarea id="message" name="message" rows="5" required style="width:100%; padding:10px; margin-top:6px; border:none; border-radius:6px; background:rgba(255,255,255,0.05); color:#fff; font-size:14px; outline:none; box-shadow:0 0 5px rgba(0,153,255,0.2);"></textarea>
 
-      if (!name || !email || !subject || !message) {
-        e.preventDefault();
-        document.getElementById("formStatus").textContent = "Please fill out all fields.";
-      } else {
-        document.getElementById("formStatus").textContent = "Sending message...";
-      }
-    });
-  </script>
-</section>
-
+  <button type="submit" style="display:block; margin-top:20px; padding:12px; background:linear-gradient(90deg, #0066ff, #00ccff); color:#fff; font-size:16px; border:none; border-radius:6px; cursor:pointer; font-weight:bold; box-shadow:0 0 8px rgba(0,153,255,0.5); transition:background 0.3s ease, box-shadow 0.3s ease;"
+    onmouseover="this.style.background='linear-gradient(90deg, #00ccff, #0066ff)'; this.style.boxShadow='0 0 15px rgba(0,153,255,0.7)';"
+    onmouseout="this.style.background='linear-gradient(90deg, #0066ff, #00ccff)'; this.style.boxShadow='0 0 8px rgba(0,153,255,0.5)';">
+    Send Message
+  </button>
+</form>
 
 
                 
